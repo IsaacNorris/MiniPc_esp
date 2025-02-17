@@ -1,18 +1,12 @@
 #include <Arduino.h>
+#include "System.h"
 
-// put function declarations here:
-int myFunction(int, int);
+tSystem system;
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  system.SystemStartup();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  system.SystemLoop();
 }
