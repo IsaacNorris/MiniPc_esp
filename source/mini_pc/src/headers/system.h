@@ -1,23 +1,25 @@
-#pragma once 
+#pragma once
 
 #include <Arduino.h>
 #include "graphics.h"
 #include "wire.h"
 
-class tSystem {
+class tSystem
+{
 public:
-    tSystem():
-    graphics_(new tGraphics)
+    tSystem() : graphics_(new tGraphicManager)
     {
         Serial.begin(9600);
     };
 
-    ~tSystem(){
+    ~tSystem()
+    {
         delete graphics_;
     };
 
     void StartUp();
     void Loop();
+
 private:
-    tGraphics* graphics_;
+    tGraphicManager *graphics_;
 };

@@ -4,25 +4,25 @@
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
 
-class tGraphics {
+class tGraphicManager
+{
 public:
-    tGraphics():
-    display_(new Adafruit_SSD1306(128, 64, &Wire, -1))
+    tGraphicManager() : display_(new Adafruit_SSD1306(128, 64, &Wire, -1))
     {
-
     }
 
-    ~tGraphics(){
+    ~tGraphicManager()
+    {
         delete display_;
     }
 
     bool BeginDisplay();
     void ClearDisplay();
-    void WriteToScreen(const String& str);
+    void WriteToScreen(const String &str);
     void Display();
 
-    void PrintToScreen(const String& str);
+    void PrintToScreen(const String &str);
 
 private:
-    Adafruit_SSD1306* display_;
+    Adafruit_SSD1306 *display_;
 };

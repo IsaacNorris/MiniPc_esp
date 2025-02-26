@@ -4,10 +4,12 @@
 
 tSystem sys__;
 
-void setup() {
+void setup()
+{
     sys__.StartUp();
 }
-      
-void loop() {
+
+void loop()
+{
     sys__.Loop();
 }
