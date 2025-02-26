@@ -1,12 +1,13 @@
 #include <Arduino.h>
-#include "System.h"
 
-tSystem system;
+#include "headers/system.h"
+
+tSystem sys__;
 
 void setup() {
-  system.SystemStartup();
+    sys__.StartUp();
 }
-
+      
 void loop() {
-  system.SystemLoop();
+    sys__.Loop();
 }
