@@ -7,13 +7,12 @@
 class tGraphicManager
 {
 public:
-    tGraphicManager() : display_(new Adafruit_SSD1306(128, 64, &Wire, -1))
+    tGraphicManager() : display_(Adafruit_SSD1306(128, 64, &Wire, -1))
     {
     }
 
     ~tGraphicManager()
     {
-        delete display_;
     }
 
     bool BeginDisplay();
@@ -24,5 +23,5 @@ public:
     void PrintToScreen(const String &str);
 
 private:
-    Adafruit_SSD1306 *display_;
+    Adafruit_SSD1306 display_;
 };

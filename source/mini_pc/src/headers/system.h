@@ -6,29 +6,28 @@
 #include "graphics.h"
 #include "devices.h"
 #include "comms.h"
+#include "states.h"
 
 class tSystem
 {
 public:
-    tSystem() : graphics_(new tGraphicManager), devices_(new tDeviceManager), comms_(new tCommsManager)
+    tSystem()
     {
         Serial.begin(9600);
-    };
+    }
 
     ~tSystem()
     {
-        delete graphics_;
-        delete devices_;
-        delete comms_;
-    };
+    }
 
     void StartUp();
     void Loop();
 
 private:
-    tGraphicManager *graphics_;
-    tDeviceManager *devices_;
-    tCommsManager *comms_;
+    tGraphicManager graphics_;
+    tDeviceManager devices_;
+    tCommsManager comms_;
+    tStateManager states_;
 };
 
 // TODO: add the menu options similar to the old watch interface
