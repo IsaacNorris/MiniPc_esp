@@ -52,6 +52,7 @@ private:
     // ezButton backButton_;
 #if WATCH_PRj
 #warning Get Ben to tell me the pin numbers. for the input buttons.
+    // 1, 2, 4 <- ion know the other pins.
     static constexpr uint8_t buttonUpPin = 20;
     static constexpr uint8_t buttonDownPin = 20;
     static constexpr uint8_t buttonEnterPin = 20;

@@ -35,6 +35,7 @@ void tTime::UpdateTime()
             format = format == eFormat::AM ? eFormat::PM : eFormat::AM;
         }
     }
+    UpdateFace();
 }
 
 void tTime::UpdateFace()
@@ -59,14 +60,57 @@ void tTime::UpdateFace()
     }
 }
 
-void tTime::SetSec()
+void tTime::SetSec(int num)
 {
+    sec_ = num;
+    if (sec_ < 0)
+    {
+        sec_ = 59;
+    }
+    if (sec_ > 59)
+    {
+        sec_ = 0;
+    }
 }
-void tTime::SetMin()
+void tTime::SetMin(int num)
 {
+    min_ = num;
+    if (min_ < 0)
+    {
+        min_ = 59;
+    }
+    if (min_ > 59)
+    {
+        min_ = 0;
+    }
 }
-void tTime::SetHour()
+void tTime::SetHour(int num)
 {
+    hour_ = num;
+    if (timeType == eTimeType::TwentyFourHour)
+    {
+        if (hour_ < 0)
+        {
+            hour_ = 23;
+        }
+        if (hour_ > 23)
+        {
+            hour_ = 0;
+        }
+    }
+    else
+    {
+        if (hour_ < 1)
+        {
+            hour_ = 12;
+            format = format == eFormat::AM ? eFormat::PM : eFormat::AM;
+        }
+        if (hour_ > 12)
+        {
+            hour_ = 1;
+            format = format == eFormat::AM ? eFormat::PM : eFormat::AM;
+        }
+    }
 }
 
 uint8_t tTime::Sec()
@@ -85,4 +129,9 @@ uint8_t tTime::Hour()
 void tSysClock::UpdateClock()
 {
     time_.UpdateTime();
+}
+
+std::string &tSysClock::DisplayFace()
+{
+    return time_.displayFace;
 }

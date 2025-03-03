@@ -25,9 +25,9 @@ struct tTime
 
     std::string displayFace;
 
-    void SetSec();
-    void SetMin();
-    void SetHour();
+    void SetSec(int num);
+    void SetMin(int num);
+    void SetHour(int num);
 
     uint8_t Sec();
     uint8_t Min();
@@ -50,6 +50,7 @@ public:
     }
 
     void UpdateClock();
+    std::string &DisplayFace();
 
 private:
     tTime time_;
