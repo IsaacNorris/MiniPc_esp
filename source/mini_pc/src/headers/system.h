@@ -15,6 +15,7 @@ public:
     tSystem() : states_(&devices_, &graphics_, &clock_)
     {
         Serial.begin(9600);
+        startMillis = millis();
     }
 
     ~tSystem()
@@ -24,7 +25,13 @@ public:
     void StartUp();
     void Loop();
 
+    static constexpr uint8_t secondLength = 1000;
+    unsigned long startMillis;
+    unsigned long currentMillis;
+
 private:
+    void controlTick();
+
     tGraphicManager graphics_;
     tDeviceManager devices_;
     tCommsManager comms_;
