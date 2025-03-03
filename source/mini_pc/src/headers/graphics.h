@@ -7,7 +7,7 @@
 class tGraphicManager
 {
 public:
-    tGraphicManager() : display_(Adafruit_SSD1306(128, 64, &Wire, -1))
+    tGraphicManager() : display_(Adafruit_SSD1306(128, 64, &Wire))
     {
     }
 

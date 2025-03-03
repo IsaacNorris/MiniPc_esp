@@ -1,6 +1,13 @@
 {
     "files.associations": {
         "atomic": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "array": "cpp",
+        "functional": "cpp",
+        "istream": "cpp",
+        "ostream": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp"
     }
 }

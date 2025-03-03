@@ -2,7 +2,7 @@
 
 bool tGraphicManager::BeginDisplay()
 {
-    return display_.begin(SSD1306_SWITCHCAPVCC, 0x78);
+    return display_.begin(SSD1306_SWITCHCAPVCC, 0x3c);
 }
 
 void tGraphicManager::ClearDisplay()
@@ -26,7 +26,7 @@ void tGraphicManager::Display()
 
 void tGraphicManager::PrintToScreen(const String &str)
 {
-    display_.fillRect(0, 0, 128, 64, BLACK);
+    ClearDisplay();
     WriteToScreen(str);
     Display();
 }

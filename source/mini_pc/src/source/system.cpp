@@ -2,13 +2,13 @@
 
 void tSystem::StartUp()
 {
-#warning Need to confirm this with a working esp32 and ssd1306 display
     if (graphics_.BeginDisplay())
         Serial.println("SCREEN CONNECTED");
     else
         Serial.println("SCREEN NOT CONNECTED");
 
-    graphics_.PrintToScreen("started");
+    graphics_.PrintToScreen("starting ...");
+    delay(500);
 }
 
 void tSystem::Loop()
@@ -16,4 +16,17 @@ void tSystem::Loop()
     devices_.Loop(); // should be first thing in loop :)
     comms_.Loop();
     states_.Loop();
+
+    if (devices_.ButtonPressed(eButtonType::Up))
+    {
+        graphics_.PrintToScreen("Up");
+    }
+    else if (devices_.ButtonPressed(eButtonType::Down))
+    {
+        graphics_.PrintToScreen("Down");
+    }
+    else if (devices_.ButtonPressed(eButtonType::Enter))
+    {
+        graphics_.PrintToScreen("Enter");
+    }
 }

@@ -1,51 +1,36 @@
 #pragma once
 
 #include <Arduino.h>
+#include <ezButton.h>
 #include <array>
 
-struct tButton
+#define WATCH_PRj false
+
+enum class eButtonType
 {
-    tButton(uint8_t pin) : pin_(pin)
-    {
-        pinMode(pin_, INPUT);
-    }
-
-    enum class eButtonState
-    {
-        Off,
-        Pressed,
-        Released
-    };
-
-    uint8_t pin_;
-    bool isActive_;
-    eButtonState currentState_;
-
-    void CheckInput()
-    {
-        if (digitalRead(pin_) == HIGH)
-        {
-            currentState_ = eButtonState::Pressed;
-            isActive_ = true;
-        }
-        else if (isActive_)
-        {
-            currentState_ = eButtonState::Released;
-            isActive_ = false;
-        }
-        else
-        {
-            currentState_ = eButtonState::Off;
-            isActive_ = false;
-        }
-    }
+    Up,
+    Down,
+    Enter,
+    Right,
+    Left,
+    Back,
+    Size
 };
 
 class tDeviceManager
 {
 public:
-    tDeviceManager() : upButton_(buttonUpPin), downButton_(buttonDownPin), enterButton_(buttonEnterPin)
+    tDeviceManager() : upButton_(buttonUpPin, INTERNAL_PULLDOWN),
+                       downButton_(buttonDownPin, INTERNAL_PULLDOWN),
+                       enterButton_(buttonEnterPin, INTERNAL_PULLDOWN) /*,
+     leftButton_(buttonLeftPin, INTERNAL_PULLDOWN),
+     rightButton_(buttonRightPin, INTERNAL_PULLDOWN),
+     backButton_(buttonBackPin, INTERNAL_PULLDOWN)*/
+    // re-include this if using the MINIPC PCB/PRJ
     {
+        upButton_.setDebounceTime(50);
+        downButton_.setDebounceTime(50);
+        enterButton_.setDebounceTime(50);
     }
 
     ~tDeviceManager()
@@ -54,13 +39,28 @@ public:
 
     void Loop();
 
-private:
-    tButton upButton_;
-    tButton downButton_;
-    tButton enterButton_;
+    bool ButtonPressed(eButtonType type);
 
+private:
+    ezButton *GetButton(eButtonType type);
+
+    ezButton upButton_;
+    ezButton downButton_;
+    ezButton enterButton_;
+    // ezButton leftButton_;
+    // ezButton rightButton_;
+    // ezButton backButton_;
+#if WATCH_PRj
 #warning Get Ben to tell me the pin numbers. for the input buttons.
     static constexpr uint8_t buttonUpPin = 20;
     static constexpr uint8_t buttonDownPin = 20;
     static constexpr uint8_t buttonEnterPin = 20;
+#else
+    static constexpr uint8_t buttonUpPin = 25;
+    static constexpr uint8_t buttonDownPin = 33;
+    static constexpr uint8_t buttonEnterPin = 35;
+    // static constexpr uint8_t buttonLeftPin = 26;
+    // static constexpr uint8_t buttonRightPin = 32;
+    // static constexpr uint8_t buttonBackPin = 34;
+#endif
 };
