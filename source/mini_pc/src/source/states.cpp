@@ -10,6 +10,9 @@ void tStateManager::Loop()
     case eStates::Idle:
         Idle();
         break;
+    case eStates::Menu:
+        Menu();
+        break;
     case eStates::Size:
         // Should not come to this
         Serial.println("ERROR: STATE MACHINE FAILURE");
@@ -28,16 +31,18 @@ void tStateManager::Idle()
 
     graphicManager_->PrintToScreen(sysClock_->DisplayFace().c_str());
 
-    if (deviceManager_->ButtonPressed(eButtonType::Up))
+    if (deviceManager_->ButtonPressed(eButtonType::Enter))
     {
-        graphicManager_->PrintToScreen("Up");
+        currentState_ = eStates::Menu;
     }
-    else if (deviceManager_->ButtonPressed(eButtonType::Down))
+}
+
+void tStateManager::Menu()
+{
+    menus_.DisplayMenu();
+
+    if (deviceManager_->ButtonPressed(eButtonType::Enter))
     {
-        graphicManager_->PrintToScreen("Down");
-    }
-    else if (deviceManager_->ButtonPressed(eButtonType::Enter))
-    {
-        graphicManager_->PrintToScreen("Enter");
+        currentState_ = eStates::Idle;
     }
 }
