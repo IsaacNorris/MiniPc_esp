@@ -25,3 +25,5 @@ public:
 private:
     Adafruit_SSD1306 display_;
 };
+
+// TODO: add themes in for the watch face.
