@@ -1,12 +1,22 @@
 #pragma once
 
 #include "graphics.h"
+#include "menuItems.h"
+
+#include <vector>
+#include <algorithm>
 
 enum class eInputType
 {
     Up,
     Down,
     Enter
+};
+
+enum class eMenuType
+{
+    MainMenu,
+    SettingsMenu
 };
 
 class tMenuManager
@@ -27,4 +37,5 @@ public:
 
 private:
     tGraphicManager *graphics_;
+    eMenuType currentMenu = eMenuType::MainMenu;
 };
