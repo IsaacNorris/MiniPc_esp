@@ -2,10 +2,13 @@
 
 void tMenuManager::DisplayMenu()
 {
-    graphics_->PrintToScreen("MENU");
+    graphics_->PrintToScreen(currentMenuItem->DisplayMenuString());
 }
 
 void tMenuManager::Input(eInputType type)
 {
-    // TODO: do stuff
+    if (auto nextMenu = currentMenuItem->Interact(type))
+    {
+        currentMenuItem = nextMenu;
+    }
 }

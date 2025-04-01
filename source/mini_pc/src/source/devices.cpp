@@ -20,13 +20,8 @@ ezButton *tDeviceManager::GetButton(eButtonType type)
     case eButtonType::Enter:
         return &enterButton_;
         break;
-    case eButtonType::Right:
-        break;
-    case eButtonType::Left:
-        break;
-    case eButtonType::Back:
-        break;
     case eButtonType::Size:
+        Serial.println("error: eButtonType::size reached");
         break;
     }
 }

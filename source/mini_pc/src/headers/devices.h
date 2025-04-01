@@ -3,30 +3,22 @@
 #include <Arduino.h>
 #include <ezButton.h>
 #include <array>
-
-#define WATCH_PRj false
+#include "constant.h"
 
 enum class eButtonType
 {
     Up,
     Down,
     Enter,
-    Right,
-    Left,
-    Back,
     Size
 };
 
 class tDeviceManager
 {
 public:
-    tDeviceManager() : upButton_(buttonUpPin, INTERNAL_PULLDOWN),
-                       downButton_(buttonDownPin, INTERNAL_PULLDOWN),
-                       enterButton_(buttonEnterPin, INTERNAL_PULLDOWN) /*,
-     leftButton_(buttonLeftPin, INTERNAL_PULLDOWN),
-     rightButton_(buttonRightPin, INTERNAL_PULLDOWN),
-     backButton_(buttonBackPin, INTERNAL_PULLDOWN)*/
-    // re-include this if using the MINIPC PCB/PRJ
+    tDeviceManager() : upButton_(BUTTON_UP_PIN, INTERNAL_PULLDOWN),
+                       downButton_(BUTTON_DOWN_PIN, INTERNAL_PULLDOWN),
+                       enterButton_(BUTTON_ENTER_PIN, INTERNAL_PULLDOWN)
     {
         upButton_.setDebounceTime(50);
         downButton_.setDebounceTime(50);
@@ -47,21 +39,4 @@ private:
     ezButton upButton_;
     ezButton downButton_;
     ezButton enterButton_;
-    // ezButton leftButton_;
-    // ezButton rightButton_;
-    // ezButton backButton_;
-#if WATCH_PRj
-#warning Get Ben to tell me the pin numbers. for the input buttons.
-    // 1, 2, 4 <- ion know the other pins.
-    static constexpr uint8_t buttonUpPin = 20;
-    static constexpr uint8_t buttonDownPin = 20;
-    static constexpr uint8_t buttonEnterPin = 20;
-#else
-    static constexpr uint8_t buttonUpPin = 25;
-    static constexpr uint8_t buttonDownPin = 33;
-    static constexpr uint8_t buttonEnterPin = 35;
-    // static constexpr uint8_t buttonLeftPin = 26;
-    // static constexpr uint8_t buttonRightPin = 32;
-    // static constexpr uint8_t buttonBackPin = 34;
-#endif
 };

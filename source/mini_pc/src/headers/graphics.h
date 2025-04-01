@@ -17,10 +17,10 @@ public:
 
     bool BeginDisplay();
     void ClearDisplay();
-    void WriteToScreen(const String &str);
+    void WriteToScreen(const std::string &str);
     void Display();
 
-    void PrintToScreen(const String &str);
+    void PrintToScreen(const std::string &str);
 
 private:
     Adafruit_SSD1306 display_;
