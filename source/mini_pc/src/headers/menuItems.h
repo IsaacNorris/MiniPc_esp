@@ -5,6 +5,13 @@
 #include <string>
 #include <vector>
 
+enum class eInputType
+{
+    Up,
+    Down,
+    Enter
+};
+
 enum class eListType
 {
     Empty,

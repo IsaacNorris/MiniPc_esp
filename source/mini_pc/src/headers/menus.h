@@ -6,13 +6,6 @@
 #include <vector>
 #include <algorithm>
 
-enum class eInputType
-{
-    Up,
-    Down,
-    Enter
-};
-
 // this is where im makeing the menus lol;
 // it seems this is the best way to do this
 // if there is a performance hit it should only be on the first startup on the watch
