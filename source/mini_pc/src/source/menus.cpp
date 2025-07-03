@@ -5,10 +5,12 @@ void tMenuManager::DisplayMenu()
     graphics_->PrintToScreen(currentMenuItem->DisplayMenuString());
 }
 
-void tMenuManager::Input(eInputType type)
+bool tMenuManager::Input(eInputType type)
 {
-    if (auto nextMenu = currentMenuItem->Interact(type))
+    if (auto nextMenu = currentMenuItem->Interact(type); nextMenu != nullptr)
     {
         currentMenuItem = nextMenu;
+        return true;
     }
+    return false;
 }

@@ -16,7 +16,7 @@ void tGraphicManager::WriteToScreen(const std::string &str)
     display_.setTextSize(1);
     display_.setCursor(0, 0);
 
-    display_.print(str);
+    display_.print(str.c_str());
 }
 
 void tGraphicManager::Display()

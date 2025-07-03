@@ -28,6 +28,7 @@ public:
     {
         label = l;
         type = t;
+        nextList = nullptr;
     }
     ~tListItem()
     {
@@ -141,6 +142,9 @@ public:
         listItems.push_back(item);
 
         maxItems = listItems.size();
+
+        currentItem = 0;        
+        listItems.at(0)->isSelected = true;
     }
 
     const std::string DisplayMenuString()
@@ -158,23 +162,27 @@ public:
 
     tMenu *Interact(eInputType input)
     {
+
         auto menu = listItems.at(currentItem)->Interact(input);
         listItems.at(currentItem)->isSelected = false;
         if (menu && input != eInputType::Enter)
         {
-            menu = nullptr;
+            Serial.println("Enter");
+            menu = listItems.at(currentItem)->nextList;
         }
         else if (input == eInputType::Up && !listItems.at(currentItem)->numberChanging)
         {
-            currentItem++;
-            if (currentItem > maxItems - 1)
-                currentItem = 0;
-        }
-        else if (input == eInputType::Down && !listItems.at(currentItem)->numberChanging)
-        {
+            Serial.println("Up");
             currentItem--;
             if (currentItem < 0)
                 currentItem = maxItems;
+        }
+        else if (input == eInputType::Down && !listItems.at(currentItem)->numberChanging)
+        { 
+            Serial.println("Down");
+            currentItem++;
+            if (currentItem > maxItems - 1)
+                currentItem = 0;
         }
         listItems.at(currentItem)->isSelected = true;
         return menu;

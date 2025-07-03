@@ -43,6 +43,14 @@ void tStateManager::Menu()
 
     if (deviceManager_->ButtonPressed(eButtonType::Enter))
     {
-        currentState_ = eStates::Idle;
+        if(!menus_.Input(eInputType::Enter)){
+            currentState_ = eStates::Idle;
+        }
+    } else if (deviceManager_->ButtonPressed(eButtonType::Down))
+    {
+        menus_.Input(eInputType::Down);
+    }else if (deviceManager_->ButtonPressed(eButtonType::Up))
+    {
+        menus_.Input(eInputType::Up);
     }
 }

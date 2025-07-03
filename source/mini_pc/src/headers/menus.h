@@ -6,15 +6,30 @@
 #include <vector>
 #include <algorithm>
 
-// this is where im makeing the menus lol;
-// it seems this is the best way to do this
-// if there is a performance hit it should only be on the first startup on the watch
-
-namespace MakeMenus
+class tMenuManager
 {
+public:
+    tMenuManager(tGraphicManager *graphics) : graphics_(graphics)
+    {
+        MakeMenus();
+        currentMenuItem = &mainMenu;
+    }
+    ~tMenuManager()
+    {
+    }
 
+    void DisplayMenu();
+
+    bool Input(eInputType type);
+
+    // TODO: add in the funcitonality form the watch.
+
+private:
+    tMenu *currentMenuItem; 
     tMenu mainMenu;
     tMenu settingMenu;
+
+    tGraphicManager *graphics_;
 
     void MakeMenus()
     {
@@ -37,27 +52,4 @@ namespace MakeMenus
         settingMenu.AddItem(new tListItem("Turn Off Time", eListType::Toggle));
         settingMenu.AddItem(settingsExit);
     }
-}
-
-class tMenuManager
-{
-public:
-    tMenuManager(tGraphicManager *graphics) : graphics_(graphics)
-    {
-        MakeMenus::MakeMenus();
-    }
-    ~tMenuManager()
-    {
-    }
-
-    void DisplayMenu();
-
-    void Input(eInputType type);
-
-    // TODO: add in the funcitonality form the watch.
-
-private:
-    tMenu *currentMenuItem = &MakeMenus::mainMenu;
-
-    tGraphicManager *graphics_;
 };
