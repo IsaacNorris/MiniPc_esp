@@ -43,7 +43,7 @@ public:
         }
         str.append(" ");
         str.append(label);
-        str.append(": ");
+        if(type != eListType::Empty) str.append(": ");
         str.append(DataToStr());
         return str;
     }
@@ -90,6 +90,7 @@ public:
     bool isSelected = false;
     bool numberChanging = false;
 
+    eListType type;
 private:
     std::string DataToStr()
     {
@@ -125,7 +126,6 @@ private:
     }
 
     std::string label;
-    eListType type;
 
     int data;
 
@@ -160,37 +160,46 @@ public:
         return str;
     }
 
-    tMenu *Interact(eInputType input)
+    tMenu *Interact(eInputType input, bool* exitMenu)
     {
-
+        *exitMenu = false;
         auto menu = listItems.at(currentItem)->Interact(input);
+
         listItems.at(currentItem)->isSelected = false;
-        if (menu && input != eInputType::Enter)
+
+        if (input == eInputType::Enter)
         {
-            Serial.println("Enter");
-            menu = listItems.at(currentItem)->nextList;
+            if(menu != nullptr){
+                menu = listItems.at(currentItem)->nextList;
+            }else if(listItems.at(currentItem)->type != eListType::Number 
+                && listItems.at(currentItem)->type != eListType::Toggle){
+                *exitMenu = true; 
+            }
+
+            listItems.at(currentItem)->isSelected = true;
+            return menu;
         }
         else if (input == eInputType::Up && !listItems.at(currentItem)->numberChanging)
         {
-            Serial.println("Up");
             currentItem--;
             if (currentItem < 0)
-                currentItem = maxItems;
+                currentItem = maxItems - 1;
         }
         else if (input == eInputType::Down && !listItems.at(currentItem)->numberChanging)
         { 
-            Serial.println("Down");
             currentItem++;
-            if (currentItem > maxItems - 1)
+            if (currentItem >= maxItems)
                 currentItem = 0;
         }
+
         listItems.at(currentItem)->isSelected = true;
-        return menu;
+
+        return nullptr;
     }
 
 private:
     std::vector<tListItem *> listItems;
 
-    uint8_t currentItem;
+    int8_t currentItem;
     uint8_t maxItems;
 };

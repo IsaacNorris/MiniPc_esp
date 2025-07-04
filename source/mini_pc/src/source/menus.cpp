@@ -7,10 +7,11 @@ void tMenuManager::DisplayMenu()
 
 bool tMenuManager::Input(eInputType type)
 {
-    if (auto nextMenu = currentMenuItem->Interact(type); nextMenu != nullptr)
+    bool exitMenu = false;
+    if (auto nextMenu = currentMenuItem->Interact(type, &exitMenu))
     {
         currentMenuItem = nextMenu;
         return true;
     }
-    return false;
+    return !exitMenu;
 }

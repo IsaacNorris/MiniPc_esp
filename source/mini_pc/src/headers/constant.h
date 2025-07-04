@@ -2,6 +2,6 @@
 
 // Change the pins to what they should be for the buttons here
 
-#define BUTTON_UP_PIN 25
-#define BUTTON_DOWN_PIN 33
-#define BUTTON_ENTER_PIN 35
+#define BUTTON_UP_PIN 25 //25 on MiniPC
+#define BUTTON_DOWN_PIN 33 //33 on MiniPC
+#define BUTTON_ENTER_PIN 35 //35 on MiniPC

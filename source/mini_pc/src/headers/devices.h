@@ -31,11 +31,9 @@ public:
 
     void Loop();
 
-    bool ButtonPressed(eButtonType type);
+    eButtonType ButtonPressed();
 
 private:
-    ezButton *GetButton(eButtonType type);
-
     ezButton upButton_;
     ezButton downButton_;
     ezButton enterButton_;

@@ -31,9 +31,20 @@ void tStateManager::Idle()
 
     graphicManager_->PrintToScreen(sysClock_->DisplayFace().c_str());
 
-    if (deviceManager_->ButtonPressed(eButtonType::Enter))
-    {
-        currentState_ = eStates::Menu;
+    switch(deviceManager_->ButtonPressed()){
+        case eButtonType::Enter:
+            Serial.println("Enter");
+
+            currentState_ = eStates::Menu;
+            break;
+        case eButtonType::Down:
+            Serial.println("Down");
+            break;
+        case eButtonType::Up:
+            Serial.println("Up");
+            break;
+        default:
+            break;
     }
 }
 
@@ -41,16 +52,22 @@ void tStateManager::Menu()
 {
     menus_.DisplayMenu();
 
-    if (deviceManager_->ButtonPressed(eButtonType::Enter))
-    {
-        if(!menus_.Input(eInputType::Enter)){
-            currentState_ = eStates::Idle;
-        }
-    } else if (deviceManager_->ButtonPressed(eButtonType::Down))
-    {
-        menus_.Input(eInputType::Down);
-    }else if (deviceManager_->ButtonPressed(eButtonType::Up))
-    {
-        menus_.Input(eInputType::Up);
-    }
+    switch(deviceManager_->ButtonPressed()){
+        case eButtonType::Enter:
+            Serial.println("Enter");
+            if(!menus_.Input(eInputType::Enter)){
+                currentState_ = eStates::Idle;
+            }
+            break;
+        case eButtonType::Down:
+            Serial.println("Down");
+            menus_.Input(eInputType::Down);
+            break;
+        case eButtonType::Up:
+            Serial.println("Up");
+            menus_.Input(eInputType::Up);
+            break;
+        default:
+            break;
+    } 
 }

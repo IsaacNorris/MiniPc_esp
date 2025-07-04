@@ -2,31 +2,23 @@
 
 void tDeviceManager::Loop()
 {
+    enterButton_.loop();
     upButton_.loop();
     downButton_.loop();
-    enterButton_.loop();
 }
 
-ezButton *tDeviceManager::GetButton(eButtonType type)
+eButtonType tDeviceManager::ButtonPressed()
 {
-    switch (type)
-    {
-    case eButtonType::Up:
-        return &upButton_;
-        break;
-    case eButtonType::Down:
-        return &downButton_;
-        break;
-    case eButtonType::Enter:
-        return &enterButton_;
-        break;
-    case eButtonType::Size:
-        Serial.println("error: eButtonType::size reached");
-        break;
+    eButtonType type = eButtonType::Size; 
+
+    if(downButton_.isPressed()){
+        type = eButtonType::Down;
+    }  
+    else if(upButton_.isPressed()){
+        type = eButtonType::Up;
     }
-}
-
-bool tDeviceManager::ButtonPressed(eButtonType type)
-{
-    return GetButton(type)->isPressed();
+    else if(enterButton_.isPressed()){
+        type = eButtonType::Enter;
+    }
+    return type;
 }
