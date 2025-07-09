@@ -24,11 +24,14 @@ class tMenu;
 class tListItem
 {
 public:
-    tListItem(const std::string &l, eListType t)
+    tListItem(const std::string &l, eListType t, int minn = 0, int maxn = 99)
     {
         label = l;
         type = t;
         nextList = nullptr;
+        data = 0;
+        minNum = minn;
+        maxNum = maxn;
     }
     ~tListItem()
     {
@@ -85,6 +88,12 @@ public:
         return nullptr;
     }
 
+    void SetMaxNum(int num){
+        maxNum = num;
+        if (data > maxNum)
+            data = minNum;
+    }
+
     tMenu *nextList;
 
     bool isSelected = false;
@@ -130,8 +139,8 @@ private:
     int data;
 
     int step = 1;
-    int maxNum = 99;
-    int minNum = 0;
+    int maxNum;
+    int minNum;
 };
 
 class tMenu

@@ -20,9 +20,9 @@ public:
                        downButton_(BUTTON_DOWN_PIN, INTERNAL_PULLDOWN),
                        enterButton_(BUTTON_ENTER_PIN, INTERNAL_PULLDOWN)
     {
-        upButton_.setDebounceTime(50);
-        downButton_.setDebounceTime(50);
-        enterButton_.setDebounceTime(50);
+        upButton_.setDebounceTime(10);
+        downButton_.setDebounceTime(10);
+        enterButton_.setDebounceTime(10);
     }
 
     ~tDeviceManager()
