@@ -55,7 +55,7 @@ void tTime::UpdateFace()
 
     if (timeType == eTimeType::TwelveHour)
     {
-        std::string AMPMString = format == eFormat::AM ? "\n am" : "\n pm";
+        std::string AMPMString = format == eFormat::AM ? "\n    am" : "\n    pm";
         displayFace.append(AMPMString.c_str());
     }
 }
