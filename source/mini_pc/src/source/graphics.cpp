@@ -10,11 +10,11 @@ void tGraphicManager::ClearDisplay()
     display_.clearDisplay();
 }
 
-void tGraphicManager::WriteToScreen(const std::string &str)
+void tGraphicManager::WriteToScreen(const std::string &str, uint8_t x = 0, uint8_t y = 0, uint8_t ts = 1)
 {
     display_.setTextColor(WHITE);
-    display_.setTextSize(1);
-    display_.setCursor(0, 0);
+    display_.setTextSize(ts);
+    display_.setCursor(x, y);
 
     display_.print(str.c_str());
 }
@@ -28,5 +28,11 @@ void tGraphicManager::PrintToScreen(const std::string &str)
 {
     ClearDisplay();
     WriteToScreen(str);
+    Display();
+}
+
+void tGraphicManager::PrintClockToScreen(const std::string &str){
+    ClearDisplay();    
+    WriteToScreen(str, 0, 0, 2);
     Display();
 }

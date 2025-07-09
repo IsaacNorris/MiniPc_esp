@@ -17,10 +17,12 @@ public:
 
     bool BeginDisplay();
     void ClearDisplay();
-    void WriteToScreen(const std::string &str);
+    void WriteToScreen(const std::string &str, uint8_t x = 0, uint8_t y = 0, uint8_t ts = 1);
     void Display();
 
     void PrintToScreen(const std::string &str);
+
+    void PrintClockToScreen(const std::string &str);
 
 private:
     Adafruit_SSD1306 display_;
