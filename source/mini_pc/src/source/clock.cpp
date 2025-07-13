@@ -40,9 +40,9 @@ void tTime::UpdateTime()
         }
     }
 
-    SetSec(sec_);
-    SetMin(min_);
-    SetHour(hour_);
+    Settings::settings.SetSec(sec_);
+    Settings::settings.SetMin(min_);
+    Settings::settings.SetHour(hour_);
 
     UpdateFace();
 }
