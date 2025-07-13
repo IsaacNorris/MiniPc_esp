@@ -1,24 +1,36 @@
 #pragma once
 
 #include "arduino.h"
+#include <EEPROM.h>
+
+#define EEPROM_SIZE 64
 
 namespace Settings{
+enum class eAddress{
+    Seconds = 1,
+    Minutes = 2,
+    Hours = 3,
+};
+
+
 class tSettings{
 public:
     tSettings(){
-        ResetSettings();
-    }
-
-    ~tSettings(){
-
-    }
+        
+    } 
 
     void SaveSettings(){
-
+        EEPROM.write(static_cast<int>(eAddress::Seconds), sec_);
+        EEPROM.write(static_cast<int>(eAddress::Minutes), min_);
+        EEPROM.write(static_cast<int>(eAddress::Hours), hour_);
+    
+        EEPROM.commit();
     }
 
     void LoadSettings(){
-
+        sec_ = EEPROM.read(static_cast<int>(eAddress::Seconds));
+        min_ = EEPROM.read(static_cast<int>(eAddress::Minutes));
+        hour_ = EEPROM.read(static_cast<int>(eAddress::Hours));
     }
 
     void ResetSettings(){

@@ -12,6 +12,15 @@ void tSystem::StartUp()
     }
 
     graphics_.PrintToScreen("starting ...");
+
+    delay(2000);
+    
+    graphics_.PrintToScreen("loading ...");
+
+    EEPROM.begin(EEPROM_SIZE);
+
+    Settings::settings.LoadSettings();
+
     delay(1000);
 }
 

@@ -44,6 +44,8 @@ void tTime::UpdateTime()
     Settings::settings.SetMin(min_);
     Settings::settings.SetHour(hour_);
 
+    Settings::settings.SaveSettings();
+
     UpdateFace();
 }
 
