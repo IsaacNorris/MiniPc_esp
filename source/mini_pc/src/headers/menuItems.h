@@ -1,7 +1,7 @@
 #pragma once
 
 #include "menus.h"
-
+#include <functional>
 #include <string>
 #include <vector>
 
@@ -24,12 +24,13 @@ class tMenu;
 class tListItem
 {
 public:
-    tListItem(const std::string &l, eListType t, int minn = 0, int maxn = 99)
+    tListItem(const std::string &l, eListType t, std::function<void(uint8_t)> onCall, int minn = 0, int maxn = 99)
     {
         label = l;
         type = t;
         nextList = nullptr;
         data = 0;
+        fOnCall = onCall;
         minNum = minn;
         maxNum = maxn;
     }
@@ -59,6 +60,7 @@ public:
         switch (type)
         {
         case eListType::Empty:
+            fOnCall(static_cast<uint8_t>(data));
             return nextList;
             break;
         case eListType::Number:
@@ -74,6 +76,7 @@ public:
                 {
                     NumberDecrease();
                 }
+                fOnCall(static_cast<uint8_t>(data));
             }
             return nullptr;
             break;
@@ -81,6 +84,7 @@ public:
             if (input == eInputType::Enter)
             {
                 data = !data;
+                fOnCall(static_cast<uint8_t>(data));
             }
             return nullptr;
             break;
@@ -94,6 +98,10 @@ public:
             data = minNum;
     }
 
+    void SetData(int value){
+        data = value;
+    }
+
     tMenu *nextList;
 
     bool isSelected = false;
@@ -101,6 +109,9 @@ public:
 
     eListType type;
 private:
+
+    std::function<void(uint8_t)> fOnCall;
+
     std::string DataToStr()
     {
         std::string str;
@@ -204,6 +215,14 @@ public:
         listItems.at(currentItem)->isSelected = true;
 
         return nullptr;
+    }
+
+    std::vector<tListItem *> GetListItems() const {
+        return listItems;
+    }
+
+    std::vector<tListItem *>& GetListItemsMod() {
+        return listItems;
     }
 
 private:
