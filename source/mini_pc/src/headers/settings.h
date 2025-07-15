@@ -14,30 +14,25 @@ enum class eAddress{
 class tSettings{
 public:
     tSettings(){
-        
+        EEPROM.begin(eepromSize);
     } 
 
     void SaveSettings(){
-
-        EEPROM.begin(eepromSize);
-
         EEPROM.write(static_cast<int>(eAddress::Seconds), sec_);
         EEPROM.write(static_cast<int>(eAddress::Minutes), min_);
         EEPROM.write(static_cast<int>(eAddress::Hours), hour_); 
 
-        EEPROM.end();
+        if(!EEPROM.commit()){
+            Serial.println("BAD COMMIT");
+        }
     }
 
     void LoadSettings(){
-        EEPROM.begin(eepromSize);
-
         sec_ = EEPROM.read(static_cast<int>(eAddress::Seconds));
         min_ = EEPROM.read(static_cast<int>(eAddress::Minutes));
         hour_ = EEPROM.read(static_cast<int>(eAddress::Hours));
 
-        Serial.println(sec_);
-
-        EEPROM.end();
+        EEPROM.commit();
     }
 
     void ResetSettings(){
