@@ -8,6 +8,7 @@
 #include "comms.h"
 #include "states.h"
 #include "clock.h"
+#include <EEPROM.h>
 
 class tSystem
 {

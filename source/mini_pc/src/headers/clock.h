@@ -1,6 +1,7 @@
 #pragma once
 
 #include "arduino.h"
+#include "settings.h"
 
 struct tTime
 {
@@ -34,9 +35,6 @@ struct tTime
     uint8_t Hour();
 
 private:
-    uint8_t sec_;
-    uint8_t min_;
-    uint8_t hour_;
 };
 
 class tSysClock

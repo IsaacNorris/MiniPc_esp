@@ -2,6 +2,10 @@
 
 void tTime::UpdateTime()
 {
+    uint8_t sec_ = Settings::settings.GetSec();
+    uint8_t min_ = Settings::settings.GetMin();
+    uint8_t hour_ = Settings::settings.GetHour();
+
     sec_++;
     if (sec_ == 60)
     {
@@ -27,19 +31,29 @@ void tTime::UpdateTime()
     }
     else
     {
-        if (hour_ == 12)
+        if (hour_ == 12){
             hour_ = 0;
-        else if (hour_ > 12)
+        }else if (hour_ > 12)
         {
             hour_ -= 12;
             format = format == eFormat::AM ? eFormat::PM : eFormat::AM;
         }
     }
+
+    Settings::settings.SetSec(sec_);
+    Settings::settings.SetMin(min_);
+    Settings::settings.SetHour(hour_);
+
+    Settings::settings.SaveSettings();
+
     UpdateFace();
 }
 
 void tTime::UpdateFace()
 {
+    uint8_t sec_ = Settings::settings.GetSec();
+    uint8_t min_ = Settings::settings.GetMin();
+    uint8_t hour_ = Settings::settings.GetHour();
     displayFace.clear();
     if (hour_ < 10)
         displayFace.append("0");
@@ -62,7 +76,7 @@ void tTime::UpdateFace()
 
 void tTime::SetSec(int num)
 {
-    sec_ = num;
+    uint8_t sec_ = num;
     if (sec_ < 0)
     {
         sec_ = 59;
@@ -71,10 +85,12 @@ void tTime::SetSec(int num)
     {
         sec_ = 0;
     }
+
+    Settings::settings.SetSec(sec_);
 }
 void tTime::SetMin(int num)
 {
-    min_ = num;
+    uint8_t min_ = num;
     if (min_ < 0)
     {
         min_ = 59;
@@ -83,10 +99,12 @@ void tTime::SetMin(int num)
     {
         min_ = 0;
     }
+
+    Settings::settings.SetMin(min_);
 }
 void tTime::SetHour(int num)
 {
-    hour_ = num;
+    uint8_t hour_ = num;
     if (timeType == eTimeType::TwentyFourHour)
     {
         if (hour_ < 0)
@@ -111,19 +129,21 @@ void tTime::SetHour(int num)
             format = format == eFormat::AM ? eFormat::PM : eFormat::AM;
         }
     }
+
+    Settings::settings.SetHour(hour_);
 }
 
 uint8_t tTime::Sec()
 {
-    return sec_;
+    return Settings::settings.GetSec();
 }
 uint8_t tTime::Min()
 {
-    return min_;
+    return Settings::settings.GetMin();
 }
 uint8_t tTime::Hour()
 {
-    return hour_;
+    return Settings::settings.GetHour();
 }
 
 void tSysClock::UpdateClock()
