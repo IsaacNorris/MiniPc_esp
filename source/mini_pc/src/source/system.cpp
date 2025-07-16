@@ -12,13 +12,8 @@ void tSystem::StartUp()
     }
 
     graphics_.PrintToScreen("starting ...");
-
-    delay(2000);
+    settings_.LoadSettings();
     
-    graphics_.PrintToScreen("loading ...");
-
-    Settings::settings.LoadSettings();
-
     delay(1000);
 }
 

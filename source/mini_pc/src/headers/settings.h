@@ -1,44 +1,38 @@
 #pragma once
 
 #include "arduino.h"
-#include <EEPROM.h>
-
-namespace Settings{
-enum class eAddress{
-    Seconds,
-    Minutes,
-    Hours,
-};
-
+#include <Preferences.h> 
 
 class tSettings{
 public:
     tSettings(){
-        EEPROM.begin(eepromSize);
     } 
 
     void SaveSettings(){
-        EEPROM.write(static_cast<int>(eAddress::Seconds), sec_);
-        EEPROM.write(static_cast<int>(eAddress::Minutes), min_);
-        EEPROM.write(static_cast<int>(eAddress::Hours), hour_); 
+        preferences.begin(settingsAddressNamespace, false);        
 
-        if(!EEPROM.commit()){
-            Serial.println("BAD COMMIT");
-        }
+        preferences.putUChar(secAddress, sec_);
+        preferences.putUChar(minAddress, min_);
+        preferences.putUChar(hourAddress, hour_);
+
+        preferences.end();
     }
 
     void LoadSettings(){
-        sec_ = EEPROM.read(static_cast<int>(eAddress::Seconds));
-        min_ = EEPROM.read(static_cast<int>(eAddress::Minutes));
-        hour_ = EEPROM.read(static_cast<int>(eAddress::Hours));
+        preferences.begin(settingsAddressNamespace, true);        
 
-        EEPROM.commit();
+        sec_ = preferences.getUChar(secAddress, defaultSec);
+        min_ = preferences.getUChar(minAddress, defaultMin);
+        hour_ = preferences.getUChar(hourAddress, defaultHour);
+
+        preferences.end();
     }
 
     void ResetSettings(){
-        SetSec(defaultSec);
-        SetMin(defaultMin);
-        SetHour(defaultHour);
+        preferences.begin(settingsAddressNamespace, false);        
+        preferences.clear();
+        preferences.end();        
+        LoadSettings();
     }
 
     const uint8_t GetSec() const { return sec_; }
@@ -51,19 +45,25 @@ public:
     void SetHour(uint8_t value){ hour_ = value; }
 
 private:
-static constexpr size_t eepromSize = 512; 
+
+Preferences preferences;
+
+static constexpr size_t eepromSize = 64; 
 
 // default values:
 static constexpr uint8_t defaultHour = 0;
 static constexpr uint8_t defaultMin = 0;
 static constexpr uint8_t defaultSec = 0;
 
+// addresses
+static constexpr const char* settingsAddressNamespace = "settings";
+
+static constexpr const char* secAddress = "sec";
+static constexpr const char* minAddress = "min";
+static constexpr const char* hourAddress = "hour";
+
 // values:
 uint8_t sec_;
 uint8_t min_;
 uint8_t hour_;
-};
-
-static tSettings settings;
-
 };
