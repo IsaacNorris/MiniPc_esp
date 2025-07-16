@@ -1,7 +1,7 @@
 #pragma once
 
 #include "arduino.h"
-#include <EEPROM.h>
+#include <Preferences.h>
 
 enum class eAddress{
     Seconds,
@@ -13,7 +13,9 @@ enum class eAddress{
 class tSettings{
 public:
     tSettings(){
-        EEPROM.begin(eepromSize);
+        if(!EEPROM.begin(eepromSize)){
+           Serial.println("EEPROM FAILED TO BEGIN"); 
+        }
 
         LoadSettings();
     } 
@@ -52,7 +54,7 @@ public:
     void SetHour(uint8_t value){ hour_ = value; }
 
 private:
-static constexpr size_t eepromSize = 512; 
+static constexpr size_t eepromSize = 64; 
 
 // default values:
 static constexpr uint8_t defaultHour = 0;
