@@ -3,7 +3,6 @@
 #include "arduino.h"
 #include <EEPROM.h>
 
-namespace Settings{
 enum class eAddress{
     Seconds,
     Minutes,
@@ -15,6 +14,8 @@ class tSettings{
 public:
     tSettings(){
         EEPROM.begin(eepromSize);
+
+        LoadSettings();
     } 
 
     void SaveSettings(){
@@ -62,8 +63,4 @@ static constexpr uint8_t defaultSec = 0;
 uint8_t sec_;
 uint8_t min_;
 uint8_t hour_;
-};
-
-static tSettings settings;
-
 };

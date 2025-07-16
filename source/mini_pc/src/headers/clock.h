@@ -34,14 +34,15 @@ struct tTime
     uint8_t Min();
     uint8_t Hour();
 
-private:
+    tSettings *settings_;
 };
 
 class tSysClock
 {
 public:
-    tSysClock()
+    tSysClock(tSettings *settings)
     {
+        time_.settings_ = settings;
     }
     ~tSysClock()
     {

@@ -13,7 +13,7 @@
 class tSystem
 {
 public:
-    tSystem() : states_(&devices_, &graphics_, &clock_)
+    tSystem() : states_(&devices_, &graphics_, &clock_, &settings_), clock_(&settings_)
     {
         Serial.begin(9600);
         startMillis = millis();
@@ -26,7 +26,7 @@ public:
     void StartUp();
     void Loop();
 
-    static constexpr uint8_t secondLength = 1000;
+    static constexpr int secondLength = 1000;
     unsigned long startMillis;
     unsigned long currentMillis;
 
@@ -38,4 +38,5 @@ private:
     tCommsManager comms_;
     tStateManager states_;
     tSysClock clock_;
+    tSettings settings_;
 };

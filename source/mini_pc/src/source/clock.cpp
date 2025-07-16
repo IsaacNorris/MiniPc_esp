@@ -2,9 +2,9 @@
 
 void tTime::UpdateTime()
 {
-    uint8_t sec_ = Settings::settings.GetSec();
-    uint8_t min_ = Settings::settings.GetMin();
-    uint8_t hour_ = Settings::settings.GetHour();
+    uint8_t sec_ = settings_->GetSec();
+    uint8_t min_ = settings_->GetMin();
+    uint8_t hour_ = settings_->GetHour();
 
     sec_++;
     if (sec_ == 60)
@@ -40,20 +40,20 @@ void tTime::UpdateTime()
         }
     }
 
-    Settings::settings.SetSec(sec_);
-    Settings::settings.SetMin(min_);
-    Settings::settings.SetHour(hour_);
+    settings_->SetSec(sec_);
+    settings_->SetMin(min_);
+    settings_->SetHour(hour_);
 
-    Settings::settings.SaveSettings();
+    settings_->SaveSettings();
 
     UpdateFace();
 }
 
 void tTime::UpdateFace()
 {
-    uint8_t sec_ = Settings::settings.GetSec();
-    uint8_t min_ = Settings::settings.GetMin();
-    uint8_t hour_ = Settings::settings.GetHour();
+    uint8_t sec_ = settings_->GetSec();
+    uint8_t min_ = settings_->GetMin();
+    uint8_t hour_ = settings_->GetHour();
     displayFace.clear();
     if (hour_ < 10)
         displayFace.append("0");
@@ -86,7 +86,7 @@ void tTime::SetSec(int num)
         sec_ = 0;
     }
 
-    Settings::settings.SetSec(sec_);
+    settings_->SetSec(sec_);
 }
 void tTime::SetMin(int num)
 {
@@ -100,7 +100,7 @@ void tTime::SetMin(int num)
         min_ = 0;
     }
 
-    Settings::settings.SetMin(min_);
+    settings_->SetMin(min_);
 }
 void tTime::SetHour(int num)
 {
@@ -130,20 +130,20 @@ void tTime::SetHour(int num)
         }
     }
 
-    Settings::settings.SetHour(hour_);
+    settings_->SetHour(hour_);
 }
 
 uint8_t tTime::Sec()
 {
-    return Settings::settings.GetSec();
+    return settings_->GetSec();
 }
 uint8_t tTime::Min()
 {
-    return Settings::settings.GetMin();
+    return settings_->GetMin();
 }
 uint8_t tTime::Hour()
 {
-    return Settings::settings.GetHour();
+    return settings_->GetHour();
 }
 
 void tSysClock::UpdateClock()

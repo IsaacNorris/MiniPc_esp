@@ -10,7 +10,7 @@
 class tMenuManager
 {
 public:
-    tMenuManager(tGraphicManager *graphics) : graphics_(graphics)
+    tMenuManager(tGraphicManager *graphics, tSettings *settings) : graphics_(graphics), settings_(settings)
     {
         MakeMenus();
         currentMenuItem = &mainMenu;
@@ -26,6 +26,8 @@ public:
     // TODO: add in the funcitonality form the watch.
 
 private:
+    tSettings *settings_;
+
     tMenu *currentMenuItem; 
 
     tMenu mainMenu;
@@ -48,13 +50,13 @@ private:
 
         // settings menu
 
-        tListItem *settingsExit = new tListItem("Exit", eListType::Empty, [](uint8_t data){Settings::settings.SaveSettings();});
+        tListItem *settingsExit = new tListItem("Exit", eListType::Empty, [this](uint8_t data){settings_->SaveSettings();});
         settingsExit->nextList = &mainMenu;
 
         tListItem *setTimeSetting = new tListItem("Set Time", eListType::Empty, [this](uint8_t){
-            setTimeMenu.GetListItemsMod().at(0)->SetData(static_cast<int>(Settings::settings.GetSec()));
-            setTimeMenu.GetListItemsMod().at(1)->SetData(static_cast<int>(Settings::settings.GetMin()));
-            setTimeMenu.GetListItemsMod().at(2)->SetData(static_cast<int>(Settings::settings.GetHour()));
+            setTimeMenu.GetListItemsMod().at(0)->SetData(static_cast<int>(settings_->GetSec()));
+            setTimeMenu.GetListItemsMod().at(1)->SetData(static_cast<int>(settings_->GetMin()));
+            setTimeMenu.GetListItemsMod().at(2)->SetData(static_cast<int>(settings_->GetHour()));
         });
         setTimeSetting->nextList = &setTimeMenu;
 
@@ -68,9 +70,9 @@ private:
         tListItem *setTimeExit = new tListItem("Exit", eListType::Empty, fEmpty);
         setTimeExit->nextList = &settingMenu;
 
-        setTimeMenu.AddItem(new tListItem("Secs", eListType::Number, [](uint8_t data){Settings::settings.SetSec(data); }, 0, 59));
-        setTimeMenu.AddItem(new tListItem("Mins", eListType::Number, [](uint8_t data){Settings::settings.SetMin(data); }, 0, 59));
-        setTimeMenu.AddItem(new tListItem("Hours", eListType::Number, [](uint8_t data){Settings::settings.SetHour(data); }, 0, 24));
+        setTimeMenu.AddItem(new tListItem("Secs", eListType::Number, [this](uint8_t data){settings_->SetSec(data); }, 0, 59));
+        setTimeMenu.AddItem(new tListItem("Mins", eListType::Number, [this](uint8_t data){settings_->SetMin(data); }, 0, 59));
+        setTimeMenu.AddItem(new tListItem("Hours", eListType::Number, [this](uint8_t data){settings_->SetHour(data); }, 0, 24));
         setTimeMenu.AddItem(setTimeExit);
     }
 };

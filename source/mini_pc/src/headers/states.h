@@ -5,11 +5,12 @@
 #include "devices.h"
 #include "clock.h"
 #include "menus.h"
+#include "settings.h"
 
 class tStateManager
 {
 public:
-    tStateManager(tDeviceManager *deviceManager, tGraphicManager *graphicManager, tSysClock *sysClock) : deviceManager_(deviceManager), graphicManager_(graphicManager), sysClock_(sysClock), menus_(graphicManager)
+    tStateManager(tDeviceManager *deviceManager, tGraphicManager *graphicManager, tSysClock *sysClock, tSettings *settings) : deviceManager_(deviceManager), graphicManager_(graphicManager), sysClock_(sysClock), menus_(graphicManager, settings), settings_(settings)
     {
     }
     ~tStateManager()
@@ -34,6 +35,7 @@ private:
     tDeviceManager *deviceManager_;
     tGraphicManager *graphicManager_;
     tSysClock *sysClock_;
+    tSettings *settings_;
 
     tMenuManager menus_;
 
