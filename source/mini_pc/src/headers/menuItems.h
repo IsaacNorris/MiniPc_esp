@@ -24,15 +24,16 @@ class tMenu;
 class tListItem
 {
 public:
-    tListItem(const std::string &l, eListType t, std::function<void(uint8_t)> onCall, int minn = 0, int maxn = 99)
+    tListItem(const std::string &l, eListType t, std::function<void(uint8_t)> onCall, int minn = 0, int maxn = 99, int stepsize = 1)
     {
         label = l;
         type = t;
         nextList = nullptr;
-        data = 0;
+        data = minn;
         fOnCall = onCall;
         minNum = minn;
         maxNum = maxn;
+        step = stepsize;
     }
     ~tListItem()
     {
@@ -149,7 +150,7 @@ private:
 
     int data;
 
-    int step = 1;
+    int step;
     int maxNum;
     int minNum;
 };

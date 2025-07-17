@@ -9,23 +9,21 @@ public:
     } 
 
     void SaveSettings(){
-        // preferences.begin(settingsAddressNamespace, false);        
+        preferences.begin(settingsAddressNamespace, false);        
 
-        // preferences.putUChar(secAddress, sec_);
-        // preferences.putUChar(minAddress, min_);
-        // preferences.putUChar(hourAddress, hour_);
+        preferences.putBool(twentyFourHourAddress, twentyFourHour_);
+        preferences.putUChar(turnOffSecsAddress, turnOffSecs_);
 
-        // preferences.end();
+        preferences.end();
     }
 
     void LoadSettings(){
-        // preferences.begin(settingsAddressNamespace, true);        
+        preferences.begin(settingsAddressNamespace, true);        
 
-        // sec_ = preferences.getUChar(secAddress, defaultSec);
-        // min_ = preferences.getUChar(minAddress, defaultMin);
-        // hour_ = preferences.getUChar(hourAddress, defaultHour);
+        twentyFourHour_ = preferences.getBool(twentyFourHourAddress, defaultTwentyFour);
+        turnOffSecs_ = preferences.getUChar(turnOffSecsAddress, defaultTurnOffSecs);
 
-        // preferences.end();
+        preferences.end();
     }
 
     void ResetSettings(){
@@ -44,26 +42,33 @@ public:
     const uint8_t GetHour() const { return hour_; }
     void SetHour(uint8_t value){ hour_ = value; }
 
+    const bool GetTwentyFour() const { return twentyFourHour_; }
+    void SetTwentyFour(bool value){ twentyFourHour_ = value; }
+
+    const uint8_t GetTurnOffSecs() const { return turnOffSecs_; }
+    void SetTurnOffSecs(uint8_t value){ turnOffSecs_ = value; }
+
 private:
 
 Preferences preferences;
 
-static constexpr size_t eepromSize = 64; 
-
 // default values:
-static constexpr uint8_t defaultHour = 0;
-static constexpr uint8_t defaultMin = 0;
-static constexpr uint8_t defaultSec = 0;
+static constexpr bool defaultTwentyFour = true;
+static constexpr uint8_t defaultTurnOffSecs = 30;
 
 // addresses
 static constexpr const char* settingsAddressNamespace = "settings";
 
-static constexpr const char* secAddress = "sec";
-static constexpr const char* minAddress = "min";
-static constexpr const char* hourAddress = "hour";
+static constexpr const char* twentyFourHourAddress = "twentyfour";
+static constexpr const char* turnOffSecsAddress = "turnoffsecs";
+
 
 // values:
 uint8_t sec_;
 uint8_t min_;
 uint8_t hour_;
+
+bool twentyFourHour_;
+uint8_t turnOffSecs_;
+
 };
