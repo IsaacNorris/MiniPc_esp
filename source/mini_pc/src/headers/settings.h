@@ -9,23 +9,23 @@ public:
     } 
 
     void SaveSettings(){
-        preferences.begin(settingsAddressNamespace, false);        
+        // preferences.begin(settingsAddressNamespace, false);        
 
-        preferences.putUChar(secAddress, sec_);
-        preferences.putUChar(minAddress, min_);
-        preferences.putUChar(hourAddress, hour_);
+        // preferences.putUChar(secAddress, sec_);
+        // preferences.putUChar(minAddress, min_);
+        // preferences.putUChar(hourAddress, hour_);
 
-        preferences.end();
+        // preferences.end();
     }
 
     void LoadSettings(){
-        preferences.begin(settingsAddressNamespace, true);        
+        // preferences.begin(settingsAddressNamespace, true);        
 
-        sec_ = preferences.getUChar(secAddress, defaultSec);
-        min_ = preferences.getUChar(minAddress, defaultMin);
-        hour_ = preferences.getUChar(hourAddress, defaultHour);
+        // sec_ = preferences.getUChar(secAddress, defaultSec);
+        // min_ = preferences.getUChar(minAddress, defaultMin);
+        // hour_ = preferences.getUChar(hourAddress, defaultHour);
 
-        preferences.end();
+        // preferences.end();
     }
 
     void ResetSettings(){

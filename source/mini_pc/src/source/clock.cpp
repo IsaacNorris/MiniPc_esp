@@ -44,8 +44,6 @@ void tTime::UpdateTime()
     settings_->SetMin(min_);
     settings_->SetHour(hour_);
 
-    settings_->SaveSettings();
-
     UpdateFace();
 }
 
