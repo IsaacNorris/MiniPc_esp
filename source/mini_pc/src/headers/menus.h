@@ -41,7 +41,10 @@ private:
         auto fEmpty = [](uint8_t){};
         // main menu
 
-        tListItem *mainSetting = new tListItem("Settings", eListType::Empty, fEmpty);
+        tListItem *mainSetting = new tListItem("Settings", eListType::Empty, [this](uint8_t){
+            settingMenu.GetListItemsMod().at(1)->SetData(static_cast<int>(settings_->GetTwentyFour())); 
+            settingMenu.GetListItemsMod().at(2)->SetData(static_cast<int>(settings_->GetTurnOffSecs())); 
+        });
         mainSetting->nextList = &settingMenu;
 
         mainMenu.AddItem(mainSetting);
@@ -61,8 +64,8 @@ private:
         setTimeSetting->nextList = &setTimeMenu;
 
         settingMenu.AddItem(setTimeSetting);
-        settingMenu.AddItem(new tListItem("24 Hour Time", eListType::Toggle, fEmpty));
-        settingMenu.AddItem(new tListItem("Turn Off Time", eListType::Toggle, fEmpty));
+        settingMenu.AddItem(new tListItem("24 Hour Time", eListType::Toggle, [this](uint8_t data){ settings_->SetTwentyFour(static_cast<bool>(data)); }));
+        settingMenu.AddItem(new tListItem("Turn Off Time", eListType::Number, [this](uint8_t data){ settings_->SetTurnOffSecs(data); }, 15, 120, 15));
         settingMenu.AddItem(settingsExit);
 
         // set time menu
