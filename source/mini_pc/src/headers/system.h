@@ -7,7 +7,6 @@
 #include "devices.h"
 #include "comms.h"
 #include "states.h"
-#include "clock.h"
 
 class tSystem
 {

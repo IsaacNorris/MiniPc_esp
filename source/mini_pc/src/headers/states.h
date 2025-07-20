@@ -3,7 +3,6 @@
 #include "Arduino.h"
 #include "graphics.h"
 #include "devices.h"
-#include "clock.h"
 #include "menus.h"
 #include "settings.h"
 

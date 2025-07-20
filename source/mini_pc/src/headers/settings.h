@@ -27,7 +27,23 @@ public:
     }
 
     std::string GetTime(){
-        return std::string(rtc_.getTime().c_str());
+        if(twentyFourHour_){
+            return std::string(rtc_.getTime().c_str());
+        }else{
+            std::string time = "";
+            int hour = rtc_.getHour();
+            int minute = rtc_.getMinute();
+            int second = rtc_.getSecond();
+            if(hour < 10) time.append("0");
+            time.append(std::to_string(hour));
+            time.append(":");
+            if(minute < 10) time.append("0");
+            time.append(std::to_string(minute));
+            time.append(":");
+            if(second < 10) time.append("0");
+            time.append(std::to_string(second));
+            return time;
+        }
     }
 
     void LoadSettings(){
@@ -49,13 +65,13 @@ public:
     }
 
     void SetSec(int value){
-        SetTime(value, rtc_.getMinute(), rtc_.getHour(), rtc_.getDay(), rtc_.getMonth(), rtc_.getYear());
+        SetTime(value, rtc_.getMinute(), rtc_.getHour(true), rtc_.getDay(), rtc_.getMonth(), rtc_.getYear());
     }
 
     const uint8_t GetSec() { return static_cast<uint8_t>(rtc_.getSecond()); }
 
     void SetMin(int value){ 
-        SetTime(rtc_.getSecond(), value, rtc_.getHour(), rtc_.getDay(), rtc_.getMonth(), rtc_.getYear());
+        SetTime(rtc_.getSecond(), value, rtc_.getHour(true), rtc_.getDay(), rtc_.getMonth(), rtc_.getYear());
     }
 
     const uint8_t GetMin() { return static_cast<uint8_t>(rtc_.getMinute()); }
@@ -64,7 +80,7 @@ public:
         SetTime(rtc_.getSecond(), rtc_.getMinute(), value, rtc_.getDay(), rtc_.getMonth(), rtc_.getYear());
     }
 
-    const uint8_t GetHour() { return static_cast<uint8_t>(rtc_.getHour()); }
+    const uint8_t GetHour() { return static_cast<uint8_t>(rtc_.getHour(true)); }
 
 
     const bool GetTwentyFour() const { return twentyFourHour_; }

@@ -77,7 +77,7 @@ private:
 
         setTimeMenu.AddItem(new tListItem("Secs", eListType::Number, fEmpty, 0, 59));
         setTimeMenu.AddItem(new tListItem("Mins", eListType::Number, fEmpty, 0, 59));
-        setTimeMenu.AddItem(new tListItem("Hours", eListType::Number, fEmpty, 0, 24));
+        setTimeMenu.AddItem(new tListItem("Hours", eListType::Number, fEmpty, 0, 23));
         setTimeMenu.AddItem(setTimeExit);
     }
 };
