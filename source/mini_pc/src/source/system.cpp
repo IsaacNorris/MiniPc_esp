@@ -22,17 +22,5 @@ void tSystem::Loop()
     devices_.Loop(); // should be first thing in loop :)
     comms_.Loop();
 
-    currentMillis = millis();
-    controlTick();
-
     states_.Loop();
-}
-
-void tSystem::controlTick()
-{
-    if (currentMillis - startMillis >= 1000)
-    {
-        clock_.UpdateClock();
-        startMillis = currentMillis;
-    }
 }

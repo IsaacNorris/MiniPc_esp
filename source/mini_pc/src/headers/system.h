@@ -12,7 +12,7 @@
 class tSystem
 {
 public:
-    tSystem() : states_(&devices_, &graphics_, &clock_, &settings_), clock_(&settings_)
+    tSystem() : states_(&devices_, &graphics_, &settings_)
     {
         Serial.begin(9600);
         startMillis = millis();
@@ -30,12 +30,9 @@ public:
     unsigned long currentMillis;
 
 private:
-    void controlTick();
-
     tGraphicManager graphics_;
     tDeviceManager devices_;
     tCommsManager comms_;
     tStateManager states_;
-    tSysClock clock_;
     tSettings settings_;
 };

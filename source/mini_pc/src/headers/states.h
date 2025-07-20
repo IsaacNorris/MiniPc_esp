@@ -10,7 +10,7 @@
 class tStateManager
 {
 public:
-    tStateManager(tDeviceManager *deviceManager, tGraphicManager *graphicManager, tSysClock *sysClock, tSettings *settings) : deviceManager_(deviceManager), graphicManager_(graphicManager), sysClock_(sysClock), menus_(graphicManager, settings), settings_(settings)
+    tStateManager(tDeviceManager *deviceManager, tGraphicManager *graphicManager, tSettings *settings) : deviceManager_(deviceManager), graphicManager_(graphicManager), menus_(graphicManager, settings), settings_(settings)
     {
     }
     ~tStateManager()
@@ -34,7 +34,6 @@ private:
 
     tDeviceManager *deviceManager_;
     tGraphicManager *graphicManager_;
-    tSysClock *sysClock_;
     tSettings *settings_;
 
     tMenuManager menus_;

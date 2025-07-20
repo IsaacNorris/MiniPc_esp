@@ -70,12 +70,14 @@ private:
 
         // set time menu
 
-        tListItem *setTimeExit = new tListItem("Exit", eListType::Empty, fEmpty);
+        tListItem *setTimeExit = new tListItem("Exit", eListType::Empty, [this](uint8_t){
+            settings_->SetTimeOnly(setTimeMenu.GetListItemsMod().at(0)->GetData(), setTimeMenu.GetListItemsMod().at(1)->GetData(), setTimeMenu.GetListItemsMod().at(2)->GetData());
+        });
         setTimeExit->nextList = &settingMenu;
 
-        setTimeMenu.AddItem(new tListItem("Secs", eListType::Number, [this](uint8_t data){settings_->SetSec(data); }, 0, 59));
-        setTimeMenu.AddItem(new tListItem("Mins", eListType::Number, [this](uint8_t data){settings_->SetMin(data); }, 0, 59));
-        setTimeMenu.AddItem(new tListItem("Hours", eListType::Number, [this](uint8_t data){settings_->SetHour(data); }, 0, 24));
+        setTimeMenu.AddItem(new tListItem("Secs", eListType::Number, fEmpty, 0, 59));
+        setTimeMenu.AddItem(new tListItem("Mins", eListType::Number, fEmpty, 0, 59));
+        setTimeMenu.AddItem(new tListItem("Hours", eListType::Number, fEmpty, 0, 24));
         setTimeMenu.AddItem(setTimeExit);
     }
 };
