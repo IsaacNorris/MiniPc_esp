@@ -2,6 +2,7 @@
 
 #include "arduino.h"
 #include <Preferences.h> 
+#include <ESP32Time.h>
 
 class tSettings{
 public:
@@ -17,6 +18,18 @@ public:
         preferences.end();
     }
 
+    void SetTime(int sec, int min, int hour, int day, int month, int year){
+        rtc_.setTime(sec, min, hour, day, month, year);
+    }
+
+    void SetTimeOnly(int sec, int min, int hour){
+        rtc_.setTime(sec, min, hour, rtc_.getDay(), rtc_.getMonth(), rtc_.getYear());
+    }
+
+    std::string GetTime(){
+        return std::string(rtc_.getTime().c_str());
+    }
+
     void LoadSettings(){
         preferences.begin(settingsAddressNamespace, true);        
 
@@ -24,6 +37,8 @@ public:
         turnOffSecs_ = preferences.getUChar(turnOffSecsAddress, defaultTurnOffSecs);
 
         preferences.end();
+
+        SetTime(0, 0, 0, 0, 0, 2025);
     }
 
     void ResetSettings(){
@@ -33,14 +48,24 @@ public:
         LoadSettings();
     }
 
-    const uint8_t GetSec() const { return sec_; }
-    void SetSec(uint8_t value){ sec_ = value; }
+    void SetSec(int value){
+        SetTime(value, rtc_.getMinute(), rtc_.getHour(), rtc_.getDay(), rtc_.getMonth(), rtc_.getYear());
+    }
 
-    const uint8_t GetMin() const { return min_; }
-    void SetMin(uint8_t value){ min_ = value; }
+    const uint8_t GetSec() { return static_cast<uint8_t>(rtc_.getSecond()); }
 
-    const uint8_t GetHour() const { return hour_; }
-    void SetHour(uint8_t value){ hour_ = value; }
+    void SetMin(int value){ 
+        SetTime(rtc_.getSecond(), value, rtc_.getHour(), rtc_.getDay(), rtc_.getMonth(), rtc_.getYear());
+    }
+
+    const uint8_t GetMin() { return static_cast<uint8_t>(rtc_.getMinute()); }
+
+    void SetHour(int value){ 
+        SetTime(rtc_.getSecond(), rtc_.getMinute(), value, rtc_.getDay(), rtc_.getMonth(), rtc_.getYear());
+    }
+
+    const uint8_t GetHour() { return static_cast<uint8_t>(rtc_.getHour()); }
+
 
     const bool GetTwentyFour() const { return twentyFourHour_; }
     void SetTwentyFour(bool value){ twentyFourHour_ = value; }
@@ -51,6 +76,7 @@ public:
 private:
 
 Preferences preferences;
+ESP32Time rtc_;
 
 // default values:
 static constexpr bool defaultTwentyFour = true;
@@ -64,10 +90,6 @@ static constexpr const char* turnOffSecsAddress = "turnoffsecs";
 
 
 // values:
-uint8_t sec_;
-uint8_t min_;
-uint8_t hour_;
-
 bool twentyFourHour_;
 uint8_t turnOffSecs_;
 

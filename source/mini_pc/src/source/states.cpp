@@ -29,7 +29,7 @@ void tStateManager::Start()
 void tStateManager::Idle()
 {
 
-    graphicManager_->PrintClockToScreen(sysClock_->DisplayFace().c_str());
+    graphicManager_->PrintClockToScreen(settings_->GetTime());
 
     switch(deviceManager_->ButtonPressed()){
         case eButtonType::Enter:

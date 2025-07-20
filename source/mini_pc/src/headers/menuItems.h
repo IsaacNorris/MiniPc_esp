@@ -103,6 +103,10 @@ public:
         data = value;
     }
 
+    const int GetData() const{
+        return data;
+    } 
+
     tMenu *nextList;
 
     bool isSelected = false;
