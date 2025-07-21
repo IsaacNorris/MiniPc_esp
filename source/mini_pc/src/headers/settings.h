@@ -23,7 +23,7 @@ public:
     }
 
     void SetTimeOnly(int sec, int min, int hour){
-        rtc_.setTime(sec, min, hour, rtc_.getDay(), rtc_.getMonth(), rtc_.getYear());
+        rtc_.setTime(sec, min, hour, rtc_.getDay(), rtc_.getMonth() + 1, rtc_.getYear());
     }
 
     std::string GetTime(){
@@ -46,6 +46,35 @@ public:
         }
     }
 
+    std::string GetBatteryString(){
+        std::string battery = "";
+        if(batteryPercentage_ < 100) battery.append(" ");
+        if(batteryPercentage_ < 10) battery.append(" ");
+        battery.append(std::to_string(batteryPercentage_));
+        battery.append("%");
+        return battery;
+    }
+
+    std::string GetAmPm(){
+        return std::string(rtc_.getAmPm().c_str());
+    }
+
+    std::string GetDate(){
+        std::string date = "";
+        int day = rtc_.getDay();
+        int month = rtc_.getMonth() + 1;
+        int year = rtc_.getYear();
+        if(day < 10) date.append("0");
+        date.append(std::to_string(day));
+        date.append("/");
+        if(month < 10) date.append("0");
+        date.append(std::to_string(month));
+        date.append("/");
+        date.append(std::to_string(year));
+        return date;
+    }
+
+
     void LoadSettings(){
         preferences.begin(settingsAddressNamespace, true);        
 
@@ -54,7 +83,7 @@ public:
 
         preferences.end();
 
-        SetTime(0, 0, 0, 0, 0, 2025);
+        SetTime(0, 0, 0, 1, 11, 2025);
     }
 
     void ResetSettings(){
@@ -64,21 +93,21 @@ public:
         LoadSettings();
     }
 
-    void SetSec(int value){
-        SetTime(value, rtc_.getMinute(), rtc_.getHour(true), rtc_.getDay(), rtc_.getMonth(), rtc_.getYear());
-    }
+    // void SetSec(int value){
+    //     SetTime(value, rtc_.getMinute(), rtc_.getHour(true), rtc_.getDay(), rtc_.getMonth() + 1, rtc_.getYear());
+    // }
 
     const uint8_t GetSec() { return static_cast<uint8_t>(rtc_.getSecond()); }
 
-    void SetMin(int value){ 
-        SetTime(rtc_.getSecond(), value, rtc_.getHour(true), rtc_.getDay(), rtc_.getMonth(), rtc_.getYear());
-    }
+    // void SetMin(int value){ 
+    //     SetTime(rtc_.getSecond(), value, rtc_.getHour(true), rtc_.getDay(), rtc_.getMonth() + 1, rtc_.getYear());
+    // }
 
     const uint8_t GetMin() { return static_cast<uint8_t>(rtc_.getMinute()); }
 
-    void SetHour(int value){ 
-        SetTime(rtc_.getSecond(), rtc_.getMinute(), value, rtc_.getDay(), rtc_.getMonth(), rtc_.getYear());
-    }
+    // void SetHour(int value){ 
+    //     SetTime(rtc_.getSecond(), rtc_.getMinute(), value, rtc_.getDay(), rtc_.getMonth() + 1, rtc_.getYear());
+    // }
 
     const uint8_t GetHour() { return static_cast<uint8_t>(rtc_.getHour(true)); }
 
@@ -108,5 +137,6 @@ static constexpr const char* turnOffSecsAddress = "turnoffsecs";
 // values:
 bool twentyFourHour_;
 uint8_t turnOffSecs_;
+int batteryPercentage_ = 100;
 
 };

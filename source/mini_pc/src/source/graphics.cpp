@@ -31,8 +31,18 @@ void tGraphicManager::PrintToScreen(const std::string &str)
     Display();
 }
 
-void tGraphicManager::PrintClockToScreen(const std::string &str){
+void tGraphicManager::PrintAmPmAndDateToScreen(const std::string &ampmStr, const std::string &dateStr, const std::string &batteryString){
     ClearDisplay();    
+    std::string str = "";
+    str.append(dateStr);
+    std::string whiteSpace = "       ";
+    str.append(whiteSpace);
+    str.append(batteryString);
+    str.append(ampmStr);
+    WriteToScreen(str, 0, 0, 1);
+}
+
+void tGraphicManager::PrintClockToScreen(const std::string &str){
     WriteToScreen(str, 16, 24, 2);
     Display();
 }
