@@ -23,9 +23,12 @@ public:
     void PrintToScreen(const std::string &str);
 
     void PrintClockToScreen(const std::string &str);
+    void PrintAmPmAndDateToScreen(const std::string &ampmStr, const std::string &dateStr, const std::string &batteryString);
 
 private:
     Adafruit_SSD1306 display_;
+
+    static constexpr int maxLineLength = 22;
 };
 
 // TODO: add themes in for the watch face.

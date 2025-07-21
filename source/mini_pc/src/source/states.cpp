@@ -29,6 +29,7 @@ void tStateManager::Start()
 void tStateManager::Idle()
 {
 
+    graphicManager_->PrintAmPmAndDateToScreen(settings_->GetAmPm(), settings_->GetDate(), settings_->GetBatteryString());
     graphicManager_->PrintClockToScreen(settings_->GetTime());
 
     switch(deviceManager_->ButtonPressed()){
