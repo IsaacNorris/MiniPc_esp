@@ -11,10 +11,11 @@ void tSystem::StartUp()
         Serial.println("SCREEN NOT CONNECTED");
     }
 
-    graphics_.PrintToScreen("starting ...");
+    graphics_.ClearDisplay();
+    graphics_.PrintClockToScreen("starting");
     settings_.LoadSettings();
     
-    delay(1000);
+    delay(2000);
 }
 
 void tSystem::Loop()
