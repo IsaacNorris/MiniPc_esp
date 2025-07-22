@@ -24,7 +24,7 @@ class tMenu;
 class tListItem
 {
 public:
-    tListItem(const std::string &l, eListType t, std::function<void(uint8_t)> onCall, int minn = 0, int maxn = 99, int stepsize = 1)
+    tListItem(const std::string &l, eListType t, std::function<void(int)> onCall, int minn = 0, int maxn = 99, int stepsize = 1)
     {
         label = l;
         type = t;
@@ -61,7 +61,7 @@ public:
         switch (type)
         {
         case eListType::Empty:
-            fOnCall(static_cast<uint8_t>(data));
+            fOnCall(static_cast<int>(data));
             return nextList;
             break;
         case eListType::Number:
@@ -77,7 +77,7 @@ public:
                 {
                     NumberDecrease();
                 }
-                fOnCall(static_cast<uint8_t>(data));
+                fOnCall(static_cast<int>(data));
             }
             return nullptr;
             break;
@@ -85,7 +85,7 @@ public:
             if (input == eInputType::Enter)
             {
                 data = !data;
-                fOnCall(static_cast<uint8_t>(data));
+                fOnCall(static_cast<int>(data));
             }
             return nullptr;
             break;
@@ -115,7 +115,7 @@ public:
     eListType type;
 private:
 
-    std::function<void(uint8_t)> fOnCall;
+    std::function<void(int)> fOnCall;
 
     std::string DataToStr()
     {
@@ -234,5 +234,5 @@ private:
     std::vector<tListItem *> listItems;
 
     int8_t currentItem;
-    uint8_t maxItems;
+    int maxItems;
 };

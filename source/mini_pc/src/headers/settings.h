@@ -26,6 +26,10 @@ public:
         rtc_.setTime(sec, min, hour, rtc_.getDay(), rtc_.getMonth() + 1, rtc_.getYear());
     }
 
+    void SetDateOnly(int day, int month, int year){
+        rtc_.setTime(rtc_.getSecond(), rtc_.getMinute(), rtc_.getHour(), day, month, year);
+    }
+
     std::string GetTime(){
         if(twentyFourHour_){
             return std::string(rtc_.getTime().c_str());
@@ -97,26 +101,32 @@ public:
     //     SetTime(value, rtc_.getMinute(), rtc_.getHour(true), rtc_.getDay(), rtc_.getMonth() + 1, rtc_.getYear());
     // }
 
-    const uint8_t GetSec() { return static_cast<uint8_t>(rtc_.getSecond()); }
+    const int GetSec() { return static_cast<int>(rtc_.getSecond()); }
 
     // void SetMin(int value){ 
     //     SetTime(rtc_.getSecond(), value, rtc_.getHour(true), rtc_.getDay(), rtc_.getMonth() + 1, rtc_.getYear());
     // }
 
-    const uint8_t GetMin() { return static_cast<uint8_t>(rtc_.getMinute()); }
+    const int GetMin() { return static_cast<int>(rtc_.getMinute()); }
 
     // void SetHour(int value){ 
     //     SetTime(rtc_.getSecond(), rtc_.getMinute(), value, rtc_.getDay(), rtc_.getMonth() + 1, rtc_.getYear());
     // }
 
-    const uint8_t GetHour() { return static_cast<uint8_t>(rtc_.getHour(true)); }
+    const int GetHour() { return static_cast<int>(rtc_.getHour(true)); }
+
+    const int GetDay() { return static_cast<int>(rtc_.getDay()); }
+
+    const int GetMonth() { return static_cast<int>(rtc_.getMonth() + 1); }
+
+    const int GetYear() { return static_cast<int>(rtc_.getYear()); }
 
 
     const bool GetTwentyFour() const { return twentyFourHour_; }
     void SetTwentyFour(bool value){ twentyFourHour_ = value; }
 
-    const uint8_t GetTurnOffSecs() const { return turnOffSecs_; }
-    void SetTurnOffSecs(uint8_t value){ turnOffSecs_ = value; }
+    const int GetTurnOffSecs() const { return turnOffSecs_; }
+    void SetTurnOffSecs(int value){ turnOffSecs_ = value; }
 
 private:
 
@@ -125,7 +135,7 @@ ESP32Time rtc_;
 
 // default values:
 static constexpr bool defaultTwentyFour = true;
-static constexpr uint8_t defaultTurnOffSecs = 30;
+static constexpr int defaultTurnOffSecs = 10;
 
 // addresses
 static constexpr const char* settingsAddressNamespace = "settings";
@@ -136,7 +146,7 @@ static constexpr const char* turnOffSecsAddress = "turnoffsecs";
 
 // values:
 bool twentyFourHour_;
-uint8_t turnOffSecs_;
+int turnOffSecs_;
 int batteryPercentage_ = 100;
 
 };
