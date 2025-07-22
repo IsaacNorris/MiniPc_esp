@@ -92,7 +92,7 @@ private:
         //set date menu
 
         tListItem *setDateExit = new tListItem("Exit", eListType::Empty, [this](int){
-            settings_->SetDateOnly(setTimeMenu.GetListItemsMod().at(0)->GetData(), setTimeMenu.GetListItemsMod().at(1)->GetData(), setTimeMenu.GetListItemsMod().at(2)->GetData());
+            settings_->SetDateOnly(setDateMenu.GetListItemsMod().at(0)->GetData(), setDateMenu.GetListItemsMod().at(1)->GetData(), setDateMenu.GetListItemsMod().at(2)->GetData());
         });
         setDateExit->nextList = &settingMenu;
 
