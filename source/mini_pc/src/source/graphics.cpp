@@ -10,7 +10,7 @@ void tGraphicManager::ClearDisplay()
     display_.clearDisplay();
 }
 
-void tGraphicManager::WriteToScreen(const std::string &str, uint8_t x, uint8_t y, uint8_t ts)
+void tGraphicManager::WriteToScreen(const std::string &str, int x, int y, int ts)
 {
     display_.setTextColor(WHITE);
     display_.setTextSize(ts);
