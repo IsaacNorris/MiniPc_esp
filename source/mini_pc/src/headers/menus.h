@@ -98,7 +98,7 @@ private:
 
         setDateMenu.AddItem(new tListItem("Day", eListType::Number, fEmpty, 1, 31));
         setDateMenu.AddItem(new tListItem("Month", eListType::Number, fEmpty, 1, 12));
-        setDateMenu.AddItem(new tListItem("Year", eListType::Number, fEmpty, 2025, 2099));
+        setDateMenu.AddItem(new tListItem("Year", eListType::Number, fEmpty, 2025, 2199));
         setDateMenu.AddItem(setDateExit);
     }
 };
