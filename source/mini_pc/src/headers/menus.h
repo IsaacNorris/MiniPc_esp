@@ -34,6 +34,7 @@ private:
     tMenu settingMenu;
     tMenu setTimeMenu;
     tMenu setDateMenu;
+    tMenu displayMenu;
 
     tGraphicManager *graphics_;
 
@@ -42,10 +43,7 @@ private:
         auto fEmpty = [](int){};
         // main menu
 
-        tListItem *mainSetting = new tListItem("Settings", eListType::Empty, [this](int){
-            settingMenu.GetListItemsMod().at(1)->SetData(static_cast<int>(settings_->GetTwentyFour())); 
-            settingMenu.GetListItemsMod().at(2)->SetData(static_cast<int>(settings_->GetTurnOffSecs())); 
-        });
+        tListItem *mainSetting = new tListItem("Settings", eListType::Empty, [this](int){});
         mainSetting->nextList = &settingMenu;
 
         mainMenu.AddItem(mainSetting);
@@ -71,10 +69,16 @@ private:
         });
         setDateSetting->nextList = &setDateMenu;
 
+        tListItem * displaySetting = new tListItem("Display", eListType::Empty, [this](int){
+            displayMenu.GetListItemsMod().at(0)->SetData(static_cast<int>(settings_->GetTwentyFour())); 
+            displayMenu.GetListItemsMod().at(1)->SetData(static_cast<int>(settings_->GetTurnOffSecs()));
+            displayMenu.GetListItemsMod().at(2)->SetData(static_cast<int>(settings_->GetDarkMode()));
+        });
+        displaySetting->nextList = &displayMenu;
+
         settingMenu.AddItem(setTimeSetting);
         settingMenu.AddItem(setDateSetting);
-        settingMenu.AddItem(new tListItem("24 Hour Time", eListType::Toggle, [this](int data){ settings_->SetTwentyFour(static_cast<bool>(data)); }));
-        settingMenu.AddItem(new tListItem("Turn Off Time", eListType::Number, [this](int data){ settings_->SetTurnOffSecs(data); }, 5, 30, 5));
+        settingMenu.AddItem(displaySetting);
         settingMenu.AddItem(settingsExit);
 
         // set time menu
@@ -100,5 +104,19 @@ private:
         setDateMenu.AddItem(new tListItem("Month", eListType::Number, fEmpty, 1, 12));
         setDateMenu.AddItem(new tListItem("Year", eListType::Number, fEmpty, 2025, 2199));
         setDateMenu.AddItem(setDateExit);
+
+        //set display settings
+
+        tListItem * displayExit = new tListItem("Exit", eListType::Empty, [this](int){
+
+        });
+        displayExit->nextList = &settingMenu;
+
+        displayMenu.AddItem(new tListItem("24 Hour Time", eListType::Toggle, [this](int data){ settings_->SetTwentyFour(static_cast<bool>(data)); }));
+        displayMenu.AddItem(new tListItem("Turn Off Time", eListType::Number, [this](int data){ settings_->SetTurnOffSecs(data); }, 5, 30, 5));
+        displayMenu.AddItem(new tListItem("Dark Mode", eListType::Toggle, [this](int data){ settings_->SetDarkMode(static_cast<bool>(data)); }));
+
+        displayMenu.AddItem(displayExit);
+
     }
 };
