@@ -14,6 +14,7 @@ public:
 
         preferences.putBool(twentyFourHourAddress, twentyFourHour_);
         preferences.putUChar(turnOffSecsAddress, turnOffSecs_);
+        preferences.putBool(darkModeAddress, darkMode_);
 
         preferences.end();
     }
@@ -27,7 +28,7 @@ public:
     }
 
     void SetDateOnly(int day, int month, int year){
-        rtc_.setTime(rtc_.getSecond(), rtc_.getMinute(), rtc_.getHour(), day, month, year);
+        rtc_.setTime(rtc_.getSecond(), rtc_.getMinute(), rtc_.getHour(true), day, month, year);
     }
 
     std::string GetTime(){
@@ -84,6 +85,7 @@ public:
 
         twentyFourHour_ = preferences.getBool(twentyFourHourAddress, defaultTwentyFour);
         turnOffSecs_ = preferences.getUChar(turnOffSecsAddress, defaultTurnOffSecs);
+        darkMode_ = preferences.getBool(darkModeAddress, defaultDarkMode);
 
         preferences.end();
 
@@ -128,6 +130,9 @@ public:
     const int GetTurnOffSecs() const { return turnOffSecs_; }
     void SetTurnOffSecs(int value){ turnOffSecs_ = value; }
 
+    const bool GetDarkMode() const { return darkMode_; }
+    void SetDarkMode(bool value){ darkMode_ = value; }
+
 private:
 
 Preferences preferences;
@@ -136,17 +141,19 @@ ESP32Time rtc_;
 // default values:
 static constexpr bool defaultTwentyFour = true;
 static constexpr int defaultTurnOffSecs = 10;
+static constexpr bool defaultDarkMode = false;
 
 // addresses
 static constexpr const char* settingsAddressNamespace = "settings";
 
 static constexpr const char* twentyFourHourAddress = "twentyfour";
 static constexpr const char* turnOffSecsAddress = "turnoffsecs";
-
+static constexpr const char* darkModeAddress = "darkmode";
 
 // values:
 bool twentyFourHour_;
 int turnOffSecs_;
 int batteryPercentage_ = 100;
+bool darkMode_;
 
 };
