@@ -89,7 +89,11 @@ public:
 
         preferences.end();
 
-        SetTime(0, 0, 0, 1, 11, 2025);
+        //My check  to see if the time has already been set. 
+        //without this the time will be reset on wakeup.
+        if(rtc_.getYear() < 2025){
+            SetTime(0, 0, 0, 1, 11, 2025);
+        }
     }
 
     void ResetSettings(){
