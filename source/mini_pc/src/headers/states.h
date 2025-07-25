@@ -6,6 +6,16 @@
 #include "menus.h"
 #include "settings.h"
 
+enum class eStates
+{
+    Start,
+    Idle,
+    Menu,
+    sleep,
+    // TODO add other states.
+    Size
+};
+
 class tStateManager
 {
 public:
@@ -16,20 +26,13 @@ public:
     {
     }
     void Loop();
+    void SetState(eStates state);
 
 private:
     void Start();
     void Idle();
     void Menu();
-
-    enum class eStates
-    {
-        Start,
-        Idle,
-        Menu,
-        // TODO add other states.
-        Size
-    };
+    void Sleep(); 
 
     tDeviceManager *deviceManager_;
     tGraphicManager *graphicManager_;

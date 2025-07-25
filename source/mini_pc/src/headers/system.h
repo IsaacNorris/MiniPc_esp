@@ -23,15 +23,18 @@ public:
 
     void StartUp();
     void Loop();
+private:
 
-    static constexpr int secondLength = 1000;
     unsigned long startMillis;
     unsigned long currentMillis;
 
-private:
     tGraphicManager graphics_;
     tDeviceManager devices_;
     tCommsManager comms_;
     tStateManager states_;
     tSettings settings_;
+
+    void SleepTimer();
+
+    static constexpr unsigned int secondFromMs = 1000; 
 };

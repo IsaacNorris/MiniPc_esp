@@ -13,11 +13,19 @@ void tStateManager::Loop()
     case eStates::Menu:
         Menu();
         break;
+    case eStates::sleep:
+        Sleep();
+        break;
     case eStates::Size:
         // Should not come to this
         Serial.println("ERROR: STATE MACHINE FAILURE");
         break;
     };
+}
+
+void tStateManager::SetState(eStates state)
+{
+    currentState_ = state;
 }
 
 void tStateManager::Start()
@@ -71,4 +79,12 @@ void tStateManager::Menu()
         default:
             break;
     } 
+}
+
+void tStateManager::Sleep()
+{
+    settings_->SetDarkMode(false);
+    graphicManager_->ClearDisplay();
+    graphicManager_->Display();
+    esp_deep_sleep_start();
 }

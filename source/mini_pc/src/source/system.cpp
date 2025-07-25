@@ -2,6 +2,8 @@
 
 void tSystem::StartUp()
 {
+    Serial.begin(9600);
+
     if (graphics_.BeginDisplay())
     {
         Serial.println("SCREEN CONNECTED");
@@ -12,16 +14,34 @@ void tSystem::StartUp()
     }
 
     graphics_.ClearDisplay();
-    graphics_.PrintClockToScreen("starting");
-    settings_.LoadSettings();
-    
-    delay(2000);
+
+    esp_deep_sleep_enable_gpio_wakeup(GPIO_NUM_1, ESP_GPIO_WAKEUP_GPIO_HIGH);
+    esp_deep_sleep_enable_gpio_wakeup(GPIO_NUM_2, ESP_GPIO_WAKEUP_GPIO_HIGH);
+    esp_deep_sleep_enable_gpio_wakeup(GPIO_NUM_3, ESP_GPIO_WAKEUP_GPIO_HIGH);
+
+    startMillis = millis();
+    settings_.LoadSettings();    
 }
 
 void tSystem::Loop()
 {
     devices_.Loop(); // should be first thing in loop :)
+
+    SleepTimer();
+
     comms_.Loop();
 
-    states_.Loop();
+    states_.Loop(); 
+}
+
+void tSystem::SleepTimer(){
+    if(devices_.ButtonPressed() != eButtonType::Size){
+        startMillis = millis();
+    }
+
+    currentMillis = millis();
+
+    if((currentMillis - startMillis) >= settings_.GetTurnOffSecs() * secondFromMs){ 
+        states_.SetState(eStates::sleep);
+    }
 }
