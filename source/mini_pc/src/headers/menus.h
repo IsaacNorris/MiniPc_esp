@@ -43,7 +43,7 @@ private:
         auto fEmpty = [](int){};
         // main menu
 
-        tListItem *mainSetting = new tListItem("Settings", eListType::Empty, [this](int){});
+        tListItem *mainSetting = new tListItem("Settings", eListType::Empty, fEmpty);
         mainSetting->nextList = &settingMenu;
 
         mainMenu.AddItem(mainSetting);
@@ -107,9 +107,7 @@ private:
 
         //set display settings
 
-        tListItem * displayExit = new tListItem("Exit", eListType::Empty, [this](int){
-
-        });
+        tListItem * displayExit = new tListItem("Exit", eListType::Empty, fEmpty);
         displayExit->nextList = &settingMenu;
 
         displayMenu.AddItem(new tListItem("24 Hour Time", eListType::Toggle, [this](int data){ settings_->SetTwentyFour(static_cast<bool>(data)); }));

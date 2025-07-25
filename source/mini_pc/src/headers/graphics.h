@@ -1,13 +1,14 @@
 #pragma once
 
 #include "wire.h"
+#include "settings.h"
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
 
 class tGraphicManager
 {
 public:
-    tGraphicManager() : display_(Adafruit_SSD1306(128, 64, &Wire))
+    tGraphicManager(tSettings* setting) : display_(Adafruit_SSD1306(128, 64, &Wire)), settings_(setting)
     {
     }
 
@@ -27,6 +28,7 @@ public:
 
 private:
     Adafruit_SSD1306 display_;
+    tSettings* settings_;
 
     static constexpr int maxLineLength = 22;
 };
