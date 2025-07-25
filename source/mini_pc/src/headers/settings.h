@@ -28,7 +28,7 @@ public:
     }
 
     void SetDateOnly(int day, int month, int year){
-        rtc_.setTime(rtc_.getSecond(), rtc_.getMinute(), rtc_.getHour(), day, month, year);
+        rtc_.setTime(rtc_.getSecond(), rtc_.getMinute(), rtc_.getHour(true), day, month, year);
     }
 
     std::string GetTime(){

@@ -115,6 +115,5 @@ private:
         displayMenu.AddItem(new tListItem("Dark Mode", eListType::Toggle, [this](int data){ settings_->SetDarkMode(static_cast<bool>(data)); }));
 
         displayMenu.AddItem(displayExit);
-
     }
 };
