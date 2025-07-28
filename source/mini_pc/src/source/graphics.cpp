@@ -21,7 +21,7 @@ void tGraphicManager::WriteToScreen(const std::string &str, int x, int y, int ts
 
 void tGraphicManager::Display()
 {
-    display_.invertDisplay(settings_->GetDarkMode());
+    display_.invertDisplay(!settings_->GetDarkMode());
     display_.display();
 }
 

@@ -83,7 +83,7 @@ void tStateManager::Menu()
 
 void tStateManager::Sleep()
 {
-    settings_->SetDarkMode(false);
+    settings_->SetDarkMode(true);
     graphicManager_->ClearDisplay();
     graphicManager_->Display();
     esp_deep_sleep_start();
