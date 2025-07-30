@@ -35,6 +35,7 @@ private:
     tSettings settings_;
 
     void SleepTimer();
+    int GetBatteryPercentage();
 
     static constexpr unsigned int secondFromMs = 1000; 
 };

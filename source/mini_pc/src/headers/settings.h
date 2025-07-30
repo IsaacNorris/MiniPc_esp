@@ -51,6 +51,10 @@ public:
         }
     }
 
+    void SetBattery(int value){
+        batteryPercentage_ = value;
+    }
+
     std::string GetBatteryString(){
         std::string battery = "";
         if(batteryPercentage_ < 100) battery.append(" ");
@@ -78,7 +82,6 @@ public:
         date.append(std::to_string(year));
         return date;
     }
-
 
     void LoadSettings(){
         preferences.begin(settingsAddressNamespace, true);        
