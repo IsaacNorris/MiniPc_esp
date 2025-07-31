@@ -11,7 +11,7 @@
 class tSystem
 {
 public:
-    tSystem() : graphics_(&settings_), states_(&devices_, &graphics_, &settings_)
+    tSystem() : settings_(), graphics_(&settings_), states_(&devices_, &graphics_, &settings_)
     {
         Serial.begin(9600);
         startMillis = millis();
